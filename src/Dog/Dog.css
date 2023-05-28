@@ -1,0 +1,10 @@
+.dog-card {
+  width: 20vw;
+  height: auto;
+  border: green 1px solid;
+}
+
+.dog-image{
+  height: 100px;
+  width: auto;
+}
