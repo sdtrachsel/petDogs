@@ -8,7 +8,8 @@ class Dogs extends React.Component {
     super()
     this.state = {
       dogs: [],
-      favoriteDogs: []
+      favoriteDogs: [],
+      showFavorites: false
     }
   }
 
@@ -46,6 +47,8 @@ class Dogs extends React.Component {
     });
   };
 
+  create
+
   componentDidMount = () => {
     getDogs()
       .then(data => {
@@ -65,17 +68,27 @@ class Dogs extends React.Component {
       });
   }
 
+  changeFavoriteView =()=>{
+    this.setState((prevState) => ({showFavorites: !prevState.showFavorites }))
+  }
+
   render() {
-    const { dogs } = this.state
+    const { dogs, favoriteDogs} = this.state
     const dogCards = dogs.map(dog => <Dog key={dog.id} dog={dog} updateDogFavorite={this.updateDogFavorite} />)
+    const favDogCards = favoriteDogs.map(dog => <Dog key={dog.id} dog={dog} updateDogFavorite={this.updateDogFavorite} />)
 
     if (this.state.dogs.length < 0) {
       return <h2>Loading...</h2>
     }
     return (
+      <>
+      <div>
+        <button onClick={this.changeFavoriteView}>Favorites</button>
+      </div>
       <section className="dogs-container">
-        {dogCards}
+        {this.state.showFavorites? favDogCards: dogCards}
       </section>
+      </>
     )
   }
 }
