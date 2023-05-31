@@ -83,7 +83,7 @@ class Dogs extends React.Component {
     return (
       <>
       <div>
-        <button onClick={this.changeFavoriteView}>Favorites</button>
+        <button onClick={this.changeFavoriteView}>{this.state.showFavorites? "Home": "See Favorites"}</button>
       </div>
       <section className="dogs-container">
         {this.state.showFavorites? favDogCards: dogCards}
