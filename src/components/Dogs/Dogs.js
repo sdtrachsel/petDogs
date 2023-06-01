@@ -47,7 +47,6 @@ class Dogs extends React.Component {
     });
   };
 
-  create
 
   componentDidMount = () => {
     getDogs()
@@ -72,6 +71,25 @@ class Dogs extends React.Component {
     this.setState((prevState) => ({showFavorites: !prevState.showFavorites }))
   }
 
+  getMoreDogs = () =>{
+    getDogs()
+    .then(data => {
+      const dogInfos = data.message.map((url, index) => {
+        const dog = {}
+        dog.id = Date.now() + index
+        dog.imageUrl = url
+        dog.breed = url.match(/\/breeds\/([^/]+)/)[1]
+        dog.favorite = false
+        return dog
+      })
+
+      this.setState({ dogs: dogInfos })
+    })
+    .catch(error => {
+      console.error('API error:', error);
+    });
+  }
+
   render() {
     const { dogs, favoriteDogs} = this.state
     const dogCards = dogs.map(dog => <Dog key={dog.id} dog={dog} updateDogFavorite={this.updateDogFavorite} />)
@@ -83,6 +101,7 @@ class Dogs extends React.Component {
     return (
       <>
       <div>
+        {!this.state.showFavorites && <button onClick={this.getMoreDogs}>Get More Dogs</button>}
         <button onClick={this.changeFavoriteView}>{this.state.showFavorites? "Home": "See Favorites"}</button>
       </div>
       <section className="dogs-container">
