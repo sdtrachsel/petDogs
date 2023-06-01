@@ -1,7 +1,7 @@
 import React from "react";
 import './Dog.css'
-import favFilled from '../../assests/fav-filled.png'
-import favOutline from '../../assests/fav-outline.png'
+import favFilled from '../../assets/fav-filled.png'
+import favOutline from '../../assets/fav-outline.png'
 
 const Dog = ({dog, updateDogFavorite}) => {
 
@@ -12,6 +12,5 @@ const Dog = ({dog, updateDogFavorite}) => {
     </section>
   );
 }
-
 
 export default Dog;

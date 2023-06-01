@@ -52,46 +52,44 @@ class Dogs extends React.Component {
     this.getTheDogs()
   }
 
-  changeFavoriteView =()=>{
-    this.setState((prevState) => ({showFavorites: !prevState.showFavorites }))
+  changeFavoriteView = () => {
+    this.setState((prevState) => ({ showFavorites: !prevState.showFavorites }))
   }
 
-  getTheDogs = () =>{
+  getTheDogs = () => {
     getDogs()
-    .then(data => {
-      const dogInfos = data.message.map((url, index) => {
-        const dog = {}
-        dog.id = Date.now() + index
-        dog.imageUrl = url
-        dog.breed = url.match(/\/breeds\/([^/]+)/)[1]
-        dog.favorite = false
-        return dog
-      })
+      .then(data => {
+        const dogInfos = data.message.map((url, index) => {
+          const dog = {}
+          dog.id = Date.now() + index
+          dog.imageUrl = url
+          dog.breed = url.match(/\/breeds\/([^/]+)/)[1]
+          dog.favorite = false
+          return dog
+        })
 
-      this.setState((prevState)=> ({ dogs: [...dogInfos, ...prevState.dogs] }))
-    })
-    .catch(error => {
-      console.error('API error:', error);
-    });
+        this.setState((prevState) => ({ dogs: [...dogInfos, ...prevState.dogs] }))
+      })
+      .catch(error => {
+        console.error('GET error:', error);
+      });
   }
 
   render() {
-    const { dogs, favoriteDogs} = this.state
+    const { dogs, favoriteDogs, showFavorites } = this.state
     const dogCards = dogs.map(dog => <Dog key={dog.id} dog={dog} updateDogFavorite={this.updateDogFavorite} />)
     const favDogCards = favoriteDogs.map(dog => <Dog key={dog.id} dog={dog} updateDogFavorite={this.updateDogFavorite} />)
 
-    if (this.state.dogs.length < 0) {
-      return <h2>Loading...</h2>
-    }
     return (
       <>
-      <div>
-        {!this.state.showFavorites && <button onClick={this.getTheDogs}>Get More Dogs</button>}
-        <button onClick={this.changeFavoriteView}>{this.state.showFavorites? "Home": "See Favorites"}</button>
-      </div>
-      <section className="dogs-container">
-        {this.state.showFavorites? favDogCards: dogCards}
-      </section>
+        <div className="button-wrapper">
+          {!showFavorites && <button onClick={this.getTheDogs}>Get More Dogs</button>}
+          <button onClick={this.changeFavoriteView}>{showFavorites ? "Home" : "See Favorites"}</button>
+        </div>
+        <section className="dogs-container">
+          {showFavorites ? favDogCards : dogCards}
+        </section>
+        {!dogs.length && <h2>Loading...</h2>}
       </>
     )
   }

@@ -1,0 +1,21 @@
+.logo{
+  width: 8em;
+  margin-top: 1em;
+  margin-left: 3em;
+}
+
+.name{
+  margin: 0px;
+  font-size: 1.5rem;
+}
+
+.treat-icon {
+  height: 1.5em;
+  margin: 0em .5em 0em .5em;
+}
+
+.name-wrapper{
+  display: flex;
+  align-items: center;
+  padding-bottom: 1em;
+}

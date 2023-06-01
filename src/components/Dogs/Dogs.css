@@ -5,3 +5,24 @@
   align-items: center;
   justify-items: center;
 }
+
+.button-wrapper{
+  display: flex;
+  justify-content: space-between;
+  margin: 0em 2em;
+}
+
+button{
+  padding: .75em;
+  border: 3px solid #d55051;
+  background-color: #d55051;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+button:hover{
+  box-sizing: border-box;
+  border-color: white;
+}
