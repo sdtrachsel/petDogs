@@ -1,6 +1,7 @@
-.dogs-container{
-  border: red 1px solid;
-      display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 10px;
- }
+.dogs-container {
+  margin-top: 2%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+}

@@ -1,10 +1,19 @@
 .dog-card {
-  width: 20vw;
-  height: auto;
-  border: green 1px solid;
+  margin: 1em;
+  width: fit-content;
+  height: fit-content;
+  overflow-x: hidden;
+  position: relative;
 }
 
-.dog-image{
-  height: 100px;
+.dog-image {
+  height: 30vh;
   width: auto;
+}
+
+.fav-icon {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  height: 5vh;
 }

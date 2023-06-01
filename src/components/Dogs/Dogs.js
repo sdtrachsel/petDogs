@@ -14,7 +14,7 @@ class Dogs extends React.Component {
   }
 
   updateFavoriteDogs = (dogId) => {
-    const { dogs, favoriteDogs } = this.state;
+    const { dogs } = this.state;
     const dog = dogs.find((dog) => dog.id === dogId);
 
     if (dog.favorite) {
@@ -49,29 +49,14 @@ class Dogs extends React.Component {
 
 
   componentDidMount = () => {
-    getDogs()
-      .then(data => {
-        const dogInfos = data.message.map((url, index) => {
-          const dog = {}
-          dog.id = Date.now() + index
-          dog.imageUrl = url
-          dog.breed = url.match(/\/breeds\/([^/]+)/)[1]
-          dog.favorite = false
-          return dog
-        })
-
-        this.setState({ dogs: dogInfos })
-      })
-      .catch(error => {
-        console.error('API error:', error);
-      });
+    this.getTheDogs()
   }
 
   changeFavoriteView =()=>{
     this.setState((prevState) => ({showFavorites: !prevState.showFavorites }))
   }
 
-  getMoreDogs = () =>{
+  getTheDogs = () =>{
     getDogs()
     .then(data => {
       const dogInfos = data.message.map((url, index) => {
@@ -83,7 +68,7 @@ class Dogs extends React.Component {
         return dog
       })
 
-      this.setState({ dogs: dogInfos })
+      this.setState((prevState)=> ({ dogs: [...dogInfos, ...prevState.dogs] }))
     })
     .catch(error => {
       console.error('API error:', error);
@@ -101,7 +86,7 @@ class Dogs extends React.Component {
     return (
       <>
       <div>
-        {!this.state.showFavorites && <button onClick={this.getMoreDogs}>Get More Dogs</button>}
+        {!this.state.showFavorites && <button onClick={this.getTheDogs}>Get More Dogs</button>}
         <button onClick={this.changeFavoriteView}>{this.state.showFavorites? "Home": "See Favorites"}</button>
       </div>
       <section className="dogs-container">
